@@ -2,26 +2,27 @@
 
 Учебный проект по соревнованию [Kaggle Titanic](https://www.kaggle.com/c/titanic): по признакам пассажира предсказать, выжил он или нет (`Survived`: 0 / 1).
 
-Пайплайн: разведочный анализ → предобработка → сравнение моделей и подбор гиперпараметров → сабмит.
-
 ## Структура
 
 ```
 Titanic/
-├── EDA.ipynb                 # разведочный анализ сырых данных
-├── data_processing.ipynb     # предобработка (train/test → processed)
-├── model_selection.ipynb     # сравнение моделей и RandomizedSearchCV
-├── final_submission.ipynb    # обучение финальной модели и сабмит
-├── submission.csv            # предсказания для Kaggle
-├── requirements.txt
 ├── data/
-│   ├── raw/                  # исходные файлы соревнования
-│   │   ├── train.csv
-│   │   ├── test.csv
-│   │   └── gender_submission.csv
-│   └── processed/            # признаки после обработки
-│       ├── train.csv
-│       └── test.csv
+│ ├── processed/
+│ │ ├── test.csv
+│ │ └── train.csv
+│ └── raw/
+│ ├── gender_submission.csv
+│ ├── test.csv
+│ └── train.csv
+├── notebooks/
+│ ├── 01_EDA.ipynb
+│ ├── 02_data_processing.ipynb
+│ ├── 03_model_selection.ipynb
+│ └── 04_final_submission.ipynb
+├── .gitignore
+├── README.md
+├── requirements.txt
+└── submission.csv
 ```
 
 **`EDA.ipynb`** — словарь признаков, пропуски, связь выживаемости с полом, классом и возрастом.
@@ -42,14 +43,12 @@ pip install -r requirements.txt
 
 Ноутбуки запускаются по порядку: `EDA` → `data_processing` → `model_selection` → `final_submission`.
 
-## Результаты `final_submission.ipynb`
+## Результаты
 
 Финальный прогноз для Kaggle лежит в `submission.csv`: 418 пассажиров из `test.csv`.
 
-| | Значение |
-|---|---|
-| Предсказано погибших (`0`) | 274 |
-| Предсказано выживших (`1`) | 144 |
-| Доля выживших в сабмите | 34.4% |
-
-Формат файла — как требует соревнование: `PassengerId`, `Survived`.
+| Name         | CV       | LB      |
+|--------------|----------|---------|
+| LightGBM     | 0.850712 | 0.77033 |
+| CatBoost     | 0.849595 | NaN     |
+| RandomForest | 0.845107 | NaN     |
