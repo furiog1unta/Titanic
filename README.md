@@ -19,6 +19,7 @@ Titanic/
 │ ├── 02_data_processing.ipynb
 │ ├── 03_model_selection.ipynb
 │ └── 04_final_submission.ipynb
+├── NN.ipynb
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
